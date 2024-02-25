@@ -194,10 +194,12 @@ section {
   gap: 20px;
 }
 .icone_modifier > a {
+  display: none;
   text-decoration: none;
   color: black;
 }
 .modale {
+  display: none;
   position: absolute;
   width: 630px;
   height: 688px;
@@ -219,7 +221,7 @@ section {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 30px;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 500px;
 }
 
@@ -250,6 +252,7 @@ section {
 }
 
 .icone_modifier > .material-symbols-outlined {
+  display: none;
   font-size: 20px;
 }
 .modale-wrapper > .material-symbols-outlined {
@@ -261,13 +264,16 @@ section {
 }
 .img-wrapper {
   position: relative;
+  display: flex;
+  justify-content: center;
+  flex-basis: calc(20% - 8px);
   width: 76px;
   height: 102px;
 }
 .img-wrapper > .material-symbols-outlined {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 4px;
+  right: 12px;
   width: 17px;
   height: 17px;
   font-size: 17px;
