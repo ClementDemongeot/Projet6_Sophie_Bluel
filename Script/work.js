@@ -60,7 +60,7 @@ async function app() {
         }
         document.querySelector(".gallery").replaceChildren();
         for (let i = 0; i < worksFilter.length; i++) {
-          addImageElement(worksFilter[i]);
+          addWork(worksFilter[i]);
         }
 
         console.log(worksFilter);
@@ -104,17 +104,36 @@ async function app() {
    *  //supprime l'image de la modale
    */
   async function deleteWorkFromModale() {
-    deleteWork(works[i].id);
-
     // --> Récuperer les works depuis l'API
     // --> Enlever tous les works de la modale
     // --> ajouter les nouveaux works à la modale
+    const newWorks = await getWorks();
+    const newWorksContainer = document.querySelector(".modale-img");
+    newWorksContainer.innerHTML = "";
+    for (let i = 0; i < newWorks.length; i++) {
+      const divImage = document.createElement("div");
+      divImage.classList.add("img-wrapper");
+      const image = document.createElement("img");
+      image.src = newWorks[i].imageUrl;
+      image.classList.add("img-wrapper");
+      const trash = document.createElement("span");
+      trash.innerText = "delete";
+      trash.classList.add("material-symbols-outlined", `trash-${i}`);
+      divImage.appendChild(image);
+      divImage.appendChild(trash);
+      newWorksContainer.appendChild(divImage);
+      const trashSelected = document.querySelector(`.trash-${i}`);
+      trashSelected.addEventListener("click", async function () {
+        await deleteWork(newWorks[i].id);
+        deleteWorkFromModale();
+      });
+    }
   }
 
   /**
    * Ajout les works à la modale
    */
-  function addWorksToModale() {
+  async function addWorksToModale() {
     for (let i = 0; i < works.length; i++) {
       //ajoute les Works à la modale
       const containerImage = document.querySelector(".modale-img");
@@ -131,9 +150,10 @@ async function app() {
       containerImage.appendChild(divImage);
 
       // ajoute le comportement de suppression
+
       const trashSelected = document.querySelector(`.trash-${i}`);
       trashSelected.addEventListener("click", async function () {
-        deleteWork(works[i].id);
+        await deleteWork(works[i].id);
         deleteWorkFromModale();
       });
     }
@@ -150,15 +170,37 @@ async function app() {
     const iconeModif = document.querySelector(
       ".icone_modifier > .material-symbols-outlined"
     );
+    const linkModifier = document.querySelector(".icone_modifier > a");
+    const filtreCategories = document.querySelector(".categories");
+    const openModale = document.querySelector(".modale");
+    const body = document.querySelector("body");
+    const closeModale = document.querySelector(
+      ".modale-wrapper > .material-symbols-outlined "
+    );
     if (token) {
       iconeModif.style.display = "block";
+      linkModifier.style.display = "block";
+      filtreCategories.style.display = "none";
+      linkModifier.addEventListener("click", function () {
+        openModale.style.display = "block";
+        body.style.opacity = "0.5";
+      });
+      closeModale.addEventListener("click", function () {
+        openModale.style.display = "none";
+        body.style.opacity = "1";
+      });
+
       log.innerHTML = "logout";
       log.addEventListener("click", function () {
+        iconeModif.style.display = "none";
+        linkModifier.style.display = "none";
+        filtreCategories.style.display = "flex";
+        body.style.opacity = "1";
+
         window.localStorage.removeItem("token");
         log.innerHTML = "login";
         log.addEventListener("click", function () {
           document.location.href = "login.html";
-          console.log("coucou");
         });
       });
     } else {

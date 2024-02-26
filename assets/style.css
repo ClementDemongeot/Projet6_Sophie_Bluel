@@ -193,11 +193,7 @@ section {
   align-items: baseline;
   gap: 20px;
 }
-.icone_modifier > a {
-  display: none;
-  text-decoration: none;
-  color: black;
-}
+
 .modale {
   display: none;
   position: absolute;
@@ -223,6 +219,7 @@ section {
   margin-top: 30px;
   justify-content: flex-start;
   max-width: 500px;
+  padding: 30px;
 }
 
 .img-wrapper > img {
@@ -251,6 +248,17 @@ section {
   margin-top: 60px;
 }
 
+.icone_modifier {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+.icone_modifier > a {
+  display: none;
+  text-decoration: none;
+  color: black;
+  margin: auto;
+}
 .icone_modifier > .material-symbols-outlined {
   display: none;
   font-size: 20px;
