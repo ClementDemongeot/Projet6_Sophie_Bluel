@@ -185,7 +185,7 @@ section {
   display: block;
 }
 
-/** css modale**/
+/** css modale1**/
 
 .modale_box {
   display: flex;
@@ -206,6 +206,7 @@ section {
   border-radius: 10px;
   background-color: white;
 }
+
 .img-position {
   display: flex;
   justify-content: center;
@@ -216,7 +217,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
   justify-content: flex-start;
   max-width: 500px;
   padding: 30px;
@@ -291,7 +292,99 @@ section {
   cursor: pointer;
 }
 
-/** css modale**/
+/** css modale2**/
+.modale2 {
+  position: absolute;
+  width: 630px;
+  height: 688px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 1px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.form-Modale2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 420px;
+  align-self: center;
+  gap: 11px;
+}
+.form-Modale2 > input {
+  height: 51px;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.form-Modale2 > select {
+  height: 57px;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.buttonModale2 {
+  display: block;
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #a7a7a7;
+  margin: 2em auto;
+  width: 190px;
+  height: 36px;
+  text-align: center;
+  border-radius: 60px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.carre-bleu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 420px;
+  height: 169px;
+  background-color: #e8f1f6;
+  border-radius: 3px;
+}
+.carre-bleu > .logo-image {
+  font-size: 76px;
+  color: #b9c5cc;
+}
+.carre-bleu > p {
+  color: #444444;
+  font-size: 10px;
+  font-family: "Work Sans";
+  margin-bottom: 15px;
+}
+.button-add-photo {
+  display: block;
+  font-family: "Work Sans";
+  font-weight: 500;
+  color: #306685;
+  background-color: #cbd6dc;
+  margin: 0;
+  width: 173px;
+  height: 36px;
+  text-align: center;
+  border-radius: 60px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.modale-wrapper > .arrow-back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+/** css modale2**/
 h1 {
   display: flex;
   flex-direction: column;
