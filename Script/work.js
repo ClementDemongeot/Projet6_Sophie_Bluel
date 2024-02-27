@@ -15,6 +15,7 @@ async function app() {
     const imageContainer = document.querySelector(".gallery");
     imageContainer.appendChild(figure);
   }
+
   /**
    * Permet d'ajouter tout les Works
    */
@@ -23,6 +24,7 @@ async function app() {
       addWork(works[i]);
     }
   }
+
   /**
    * Recupère les Works depuis l'API
    * @returns works
@@ -36,6 +38,7 @@ async function app() {
     const works = await response.json();
     return works;
   }
+
   /**
    * Permet d'ajouter une Catégorie
    * @param {*} categorie
@@ -66,6 +69,7 @@ async function app() {
         console.log(worksFilter);
       });
   }
+
   /**
    * Permet d'ajouter toutes les Catégories
    */
@@ -73,6 +77,7 @@ async function app() {
     addCategorie({ name: "Tous", id: 0 });
     for (let i = 0; i < categories.length; i++) addCategorie(categories[i]);
   }
+
   /**
    * Recupère les catégories depuis l'API
    * @returns Catégories
@@ -101,46 +106,62 @@ async function app() {
   }
 
   /**
-   *  //supprime l'image de la modale
+   *  Refresh les works
    */
-  async function deleteWorkFromModale() {
+  async function refresh() {
     // --> Récuperer les works depuis l'API
     // --> Enlever tous les works de la modale
     // --> ajouter les nouveaux works à la modale
     const newWorks = await getWorks();
     const newWorksContainer = document.querySelector(".modale-img");
-    newWorksContainer.innerHTML = "";
-    for (let i = 0; i < newWorks.length; i++) {
-      const divImage = document.createElement("div");
-      divImage.classList.add("img-wrapper");
-      const image = document.createElement("img");
-      image.src = newWorks[i].imageUrl;
-      image.classList.add("img-wrapper");
-      const trash = document.createElement("span");
-      trash.innerText = "delete";
-      trash.classList.add("material-symbols-outlined", `trash-${i}`);
-      divImage.appendChild(image);
-      divImage.appendChild(trash);
-      newWorksContainer.appendChild(divImage);
-      const trashSelected = document.querySelector(`.trash-${i}`);
-      trashSelected.addEventListener("click", async function () {
-        await deleteWork(newWorks[i].id);
-        deleteWorkFromModale();
-      });
-    }
+    newWorksContainer.replaceChildren();
+    addWorksToModale(newWorks);
+    const worksContainer = document.querySelector(".gallery");
+    worksContainer.replaceChildren();
+    addWorks(newWorks);
+  }
+
+  /**
+   * Modale
+   */
+
+  async function openModale() {
+    const linkModifier = document.querySelector(".icone_modifier");
+
+    const modale = document.querySelector(".modale");
+    const header = document.querySelector("header");
+    const main = document.querySelector("main");
+    const footer = document.querySelector("footer");
+    const closeModale = document.querySelector(
+      ".modale-wrapper > .material-symbols-outlined "
+    );
+
+    linkModifier.addEventListener("click", function () {
+      modale.style.display = "block";
+      header.style.opacity = "0.5";
+      main.style.opacity = "0.5";
+      footer.style.opacity = "0.5";
+    });
+    closeModale.addEventListener("click", function () {
+      modale.style.display = "none";
+      header.style.opacity = "1";
+      main.style.opacity = "1";
+      footer.style.opacity = "1";
+    });
   }
 
   /**
    * Ajout les works à la modale
    */
-  async function addWorksToModale() {
-    for (let i = 0; i < works.length; i++) {
+  async function addWorksToModale(param) {
+    const containerImage = document.querySelector(".modale-img");
+    for (let i = 0; i < param.length; i++) {
       //ajoute les Works à la modale
-      const containerImage = document.querySelector(".modale-img");
+
       const divImage = document.createElement("div");
       divImage.classList.add("img-wrapper");
       const image = document.createElement("img");
-      image.src = works[i].imageUrl;
+      image.src = param[i].imageUrl;
       image.classList.add("img-wrapper");
       const trash = document.createElement("span");
       trash.innerText = "delete";
@@ -153,51 +174,29 @@ async function app() {
 
       const trashSelected = document.querySelector(`.trash-${i}`);
       trashSelected.addEventListener("click", async function () {
-        await deleteWork(works[i].id);
-        deleteWorkFromModale();
+        await deleteWork(param[i].id);
+        refresh();
       });
     }
   }
-
-  // Récupère le token depuis le LocalStorage
-  const token = window.localStorage.getItem("token");
 
   /**
    * Permet de définir le comportement du boutn Login/logout
    */
   function setLogInOut(token) {
     const log = document.querySelector(".log");
-    const iconeModif = document.querySelector(
-      ".icone_modifier > .material-symbols-outlined"
-    );
-    const linkModifier = document.querySelector(".icone_modifier > a");
+    const linkModifier = document.querySelector(".icone_modifier");
     const filtreCategories = document.querySelector(".categories");
-    const openModale = document.querySelector(".modale");
-    const body = document.querySelector("body");
-    const closeModale = document.querySelector(
-      ".modale-wrapper > .material-symbols-outlined "
-    );
-    if (token) {
-      iconeModif.style.display = "block";
-      linkModifier.style.display = "block";
-      filtreCategories.style.display = "none";
-      linkModifier.addEventListener("click", function () {
-        openModale.style.display = "block";
-        body.style.opacity = "0.5";
-      });
-      closeModale.addEventListener("click", function () {
-        openModale.style.display = "none";
-        body.style.opacity = "1";
-      });
 
+    if (token) {
+      openModale();
+      linkModifier.style.display = "flex";
+      filtreCategories.style.display = "none";
       log.innerHTML = "logout";
       log.addEventListener("click", function () {
-        iconeModif.style.display = "none";
+        window.localStorage.removeItem("token");
         linkModifier.style.display = "none";
         filtreCategories.style.display = "flex";
-        body.style.opacity = "1";
-
-        window.localStorage.removeItem("token");
         log.innerHTML = "login";
         log.addEventListener("click", function () {
           document.location.href = "login.html";
@@ -211,6 +210,8 @@ async function app() {
     }
   }
 
+  // Récupère le token depuis le LocalStorage
+  const token = window.localStorage.getItem("token");
   // Comportement du boutton Login/Logout
   setLogInOut(token);
 
@@ -222,7 +223,7 @@ async function app() {
   const categories = await getCategories();
   addCategories(categories);
 
-  addWorksToModale();
+  addWorksToModale(works);
 }
 
 app();

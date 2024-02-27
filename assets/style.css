@@ -249,24 +249,24 @@ section {
 }
 
 .icone_modifier {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 7px;
 }
-.icone_modifier > a {
-  display: none;
+.icone_modifier > div {
+  cursor: pointer;
   text-decoration: none;
   color: black;
   margin: auto;
 }
 .icone_modifier > .material-symbols-outlined {
-  display: none;
   font-size: 20px;
 }
 .modale-wrapper > .material-symbols-outlined {
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 
   font-size: 26px;
 }
@@ -288,6 +288,7 @@ section {
   color: white;
   background-color: black;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 /** css modale**/
