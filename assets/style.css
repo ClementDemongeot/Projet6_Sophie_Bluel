@@ -263,12 +263,12 @@ section {
 .icone_modifier > .material-symbols-outlined {
   font-size: 20px;
 }
-.modale-wrapper > .material-symbols-outlined {
+.close-modale-1,
+.close-modale-2 {
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
-
   font-size: 26px;
 }
 .img-wrapper {
@@ -294,6 +294,7 @@ section {
 
 /** css modale2**/
 .modale2 {
+  display: none;
   position: absolute;
   width: 630px;
   height: 688px;
@@ -362,7 +363,9 @@ section {
   margin-bottom: 15px;
 }
 .button-add-photo {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Work Sans";
   font-weight: 500;
   color: #306685;
@@ -371,10 +374,14 @@ section {
   width: 173px;
   height: 36px;
   text-align: center;
-  border-radius: 60px;
-  font-size: 14px;
+  border-radius: 50px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
+}
+
+#fileInput {
+  display: none;
 }
 .modale-wrapper > .arrow-back {
   position: absolute;

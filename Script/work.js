@@ -127,14 +127,15 @@ async function app() {
 
   async function openModale() {
     const linkModifier = document.querySelector(".icone_modifier");
-
     const modale = document.querySelector(".modale");
+    const modale2 = document.querySelector(".modale2");
     const header = document.querySelector("header");
     const main = document.querySelector("main");
     const footer = document.querySelector("footer");
-    const closeModale = document.querySelector(
-      ".modale-wrapper > .material-symbols-outlined "
-    );
+    const closeModale1 = document.querySelector(".close-modale-1 ");
+    const closeModale2 = document.querySelector(".close-modale-2 ");
+    const btnAddPhoto = document.querySelector(".button-add-modale1");
+    const arrowBack = document.querySelector(".arrow-back ");
 
     linkModifier.addEventListener("click", function () {
       modale.style.display = "block";
@@ -142,11 +143,31 @@ async function app() {
       main.style.opacity = "0.5";
       footer.style.opacity = "0.5";
     });
-    closeModale.addEventListener("click", function () {
+
+    btnAddPhoto.addEventListener("click", function () {
+      modale2.style.display = "block";
       modale.style.display = "none";
+    });
+
+    closeModale1.addEventListener("click", function () {
+      modale.style.display = "none";
+
       header.style.opacity = "1";
       main.style.opacity = "1";
       footer.style.opacity = "1";
+    });
+
+    closeModale2.addEventListener("click", function () {
+      modale2.style.display = "none";
+
+      header.style.opacity = "1";
+      main.style.opacity = "1";
+      footer.style.opacity = "1";
+    });
+
+    arrowBack.addEventListener("click", function () {
+      modale.style.display = "block";
+      modale2.style.display = "none";
     });
   }
 
@@ -181,9 +202,40 @@ async function app() {
   }
 
   /**
+   * Permet de définir le comportement du boutn select
+   */
+  function setSelect() {
+    const selectBtn = document.querySelector("select");
+    for (let i = 0; i < categories.length; i++) {
+      const option = document.createElement("option");
+      option.innerText = categories[i].name;
+      option.value = categories[i].id;
+      selectBtn.appendChild(option);
+    }
+  }
+
+  function previewImage() {
+    document
+      .getElementById(".fileInput")
+      .addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (file.type !== "image/png" && file.type !== "image/jpeg") {
+          alert("Please select a PNG or JPEG image.");
+          return;
+        }
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          document.getElementById("preview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+  }
+
+  /**
    * Permet de définir le comportement du boutn Login/logout
    */
-  function setLogInOut(token) {
+  function setLogInOut() {
     const log = document.querySelector(".log");
     const linkModifier = document.querySelector(".icone_modifier");
     const filtreCategories = document.querySelector(".categories");
@@ -223,7 +275,10 @@ async function app() {
   const categories = await getCategories();
   addCategories(categories);
 
+  setSelect();
+
   addWorksToModale(works);
+  previewImage(e);
 }
 
 app();

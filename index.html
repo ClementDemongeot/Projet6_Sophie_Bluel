@@ -177,13 +177,13 @@
       aria-labelledby="titleModale"
     >
       <div class="modale-wrapper">
-        <span class="material-symbols-outlined"> close </span>
+        <span class="material-symbols-outlined close-modale-1"> close </span>
         <p class="titleModale">Galerie photo</p>
         <div class="img-position">
           <div class="modale-img"></div>
         </div>
         <hr class="hr" />
-        <button>Ajouter une photo</button>
+        <button class="button-add-modale1">Ajouter une photo</button>
       </div>
     </aside>
     <aside
@@ -194,15 +194,23 @@
       aria-labelledby="titleModale"
     >
       <div class="modale-wrapper">
+        <span class="material-symbols-outlined close-modale-2"> close </span>
         <span class="material-symbols-outlined arrow-back"> arrow_back </span>
-        <span class="material-symbols-outlined"> close </span>
         <p class="titleModale">Ajout photo</p>
         <div class="img-position">
           <div class="modale-img">
             <div class="carre-bleu">
               <span class="material-symbols-outlined logo-image"> image </span>
-              <button class="button-add-photo">+ Ajouter photo</button>
-              <p>jpg,png : 4mo max</p>
+              <label for="fileInput" class="button-add-photo">
+                + Ajout photo
+              </label>
+              <input
+                type="file"
+                id="fileInput"
+                accept="image/png, image/jpeg"
+              />
+              <img id="preview" src="#" />
+              <p>jpg,png : 4mo</p>
             </div>
           </div>
         </div>
@@ -211,11 +219,11 @@
           <input type="text" name="title" id="title" />
           <label for="categorie">Catégorie</label>
           <select name="choix" id="categorie">
-            <option value="aria-hidden"></option>
+            <!--<option value="aria-hidden"></option>
             <option value="objets">Objets</option>
             <option value="appartements">Appartements</option>
             <option value="hotels">Hotels</option>
-            <option value="bar-restaurant">Bar & Restaurant</option>
+            <option value="bar-restaurant">Bar & Restaurant</option>-->
           </select>
         </form>
 
