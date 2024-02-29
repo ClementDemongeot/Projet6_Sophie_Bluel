@@ -14,6 +14,7 @@ async function app() {
     figure.appendChild(imageTitle);
     const imageContainer = document.querySelector(".gallery");
     imageContainer.appendChild(figure);
+    console.log(work);
   }
 
   /**
@@ -39,6 +40,15 @@ async function app() {
     return works;
   }
 
+  async function postWorks() {
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Autorization: `Bearer ${token}`,
+      },
+    });
+  }
   /**
    * Permet d'ajouter une Catégorie
    * @param {*} categorie
@@ -121,53 +131,62 @@ async function app() {
     addWorks(newWorks);
   }
 
+  function closeModale() {
+    const modale = document.querySelector(".modale");
+    const modale2 = document.querySelector(".modale2");
+    const modaleBackdrop = document.querySelector(".modale-backdrop");
+    const imgPreview = document.getElementById("preview");
+
+    imgPreview.src = "";
+    modale.style.display = "none";
+    modale2.style.display = "none";
+    modaleBackdrop.style.display = "none";
+  }
+
   /**
    * Modale
    */
-
   async function openModale() {
     const linkModifier = document.querySelector(".icone_modifier");
     const modale = document.querySelector(".modale");
     const modale2 = document.querySelector(".modale2");
-    const header = document.querySelector("header");
-    const main = document.querySelector("main");
-    const footer = document.querySelector("footer");
     const closeModale1 = document.querySelector(".close-modale-1 ");
     const closeModale2 = document.querySelector(".close-modale-2 ");
     const btnAddPhoto = document.querySelector(".button-add-modale1");
     const arrowBack = document.querySelector(".arrow-back ");
+    const label = document.querySelector(".button-add-photo");
+    const modaleBackdrop = document.querySelector(".modale-backdrop");
+    const formats = document.querySelector(".formats");
+    const imgPreview = document.getElementById("preview");
 
     linkModifier.addEventListener("click", function () {
       modale.style.display = "block";
-      header.style.opacity = "0.5";
-      main.style.opacity = "0.5";
-      footer.style.opacity = "0.5";
+      modaleBackdrop.style.display = "block";
     });
 
     btnAddPhoto.addEventListener("click", function () {
       modale2.style.display = "block";
+      label.style.display = "flex";
+      formats.style.display = "block";
       modale.style.display = "none";
     });
 
     closeModale1.addEventListener("click", function () {
-      modale.style.display = "none";
-
-      header.style.opacity = "1";
-      main.style.opacity = "1";
-      footer.style.opacity = "1";
+      closeModale();
     });
 
     closeModale2.addEventListener("click", function () {
-      modale2.style.display = "none";
-
-      header.style.opacity = "1";
-      main.style.opacity = "1";
-      footer.style.opacity = "1";
+      closeModale();
     });
 
     arrowBack.addEventListener("click", function () {
       modale.style.display = "block";
       modale2.style.display = "none";
+      imgPreview.src = "";
+    });
+
+    modaleBackdrop.addEventListener("click", function () {
+      closeModale();
     });
   }
 
@@ -216,18 +235,21 @@ async function app() {
 
   function previewImage() {
     document
-      .getElementById(".fileInput")
+      .getElementById("fileInput")
       .addEventListener("change", function (e) {
         const file = e.target.files[0];
+        console.log(file);
         if (file.type !== "image/png" && file.type !== "image/jpeg") {
           alert("Please select a PNG or JPEG image.");
           return;
         }
         const reader = new FileReader();
-
         reader.onload = function (e) {
           document.getElementById("preview").src = e.target.result;
         };
+
+        document.querySelector(".button-add-photo").style.display = "none";
+        document.querySelector(".formats").style.display = "none";
         reader.readAsDataURL(file);
       });
   }
@@ -278,7 +300,7 @@ async function app() {
   setSelect();
 
   addWorksToModale(works);
-  previewImage(e);
+  previewImage();
 }
 
 app();

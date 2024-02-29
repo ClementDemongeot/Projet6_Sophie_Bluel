@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="./assets/style.css" />
     <script src="Script/work.js" defer></script>
   </head>
+
   <body>
     <header>
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -64,88 +65,8 @@
           </div>
         </div>
 
-        <div class="categories">
-          <!--<div class="btn-categorie active">Tous</div>
-          <div class="btn-categorie">Objets</div>
-          <div class="btn-categorie">Appartements</div>
-          <div class="btn-categorie">Hôtels & restaurants</div>-->
-        </div>
-        <div class="gallery">
-          <!--<figure>
-            <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina" />
-            <figcaption>Abajour Tahina</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/appartement-paris-v.png"
-              alt="Appartement Paris V"
-            />
-            <figcaption>Appartement Paris V</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/restaurant-sushisen-londres.png"
-              alt="Restaurant Sushisen - Londres"
-            />
-            <figcaption>Restaurant Sushisen - Londres</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/la-balisiere.png"
-              alt="Villa “La Balisiere” - Port Louis"
-            />
-            <figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/structures-thermopolis.png"
-              alt="Structures Thermopolis"
-            />
-            <figcaption>Structures Thermopolis</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/appartement-paris-x.png"
-              alt="Appartement Paris X"
-            />
-            <figcaption>Appartement Paris X</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/le-coteau-cassis.png"
-              alt="Pavillon “Le coteau” - Cassis"
-            />
-            <figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/villa-ferneze.png"
-              alt="Villa Ferneze - Isola d’Elba"
-            />
-            <figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/appartement-paris-xviii.png"
-              alt="Appartement Paris XVIII"
-            />
-            <figcaption>Appartement Paris XVIII</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/bar-lullaby-paris.png"
-              alt="Bar “Lullaby” - Paris"
-            />
-            <figcaption>Bar “Lullaby” - Paris</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/images/hotel-first-arte-new-delhi.png"
-              alt="Hotel First Arte - New Delhi"
-            />
-            <figcaption>Hotel First Arte - New Delhi</figcaption>
-          </figure>-->
-        </div>
+        <div class="categories"></div>
+        <div class="gallery"></div>
       </section>
       <section id="contact">
         <h2>Contact</h2>
@@ -209,8 +130,8 @@
                 id="fileInput"
                 accept="image/png, image/jpeg"
               />
-              <img id="preview" src="#" />
-              <p>jpg,png : 4mo</p>
+              <img id="preview" />
+              <p class="formats">jpg,png : 4mo</p>
             </div>
           </div>
         </div>
@@ -218,13 +139,7 @@
           <label for="title">Titre</label>
           <input type="text" name="title" id="title" />
           <label for="categorie">Catégorie</label>
-          <select name="choix" id="categorie">
-            <!--<option value="aria-hidden"></option>
-            <option value="objets">Objets</option>
-            <option value="appartements">Appartements</option>
-            <option value="hotels">Hotels</option>
-            <option value="bar-restaurant">Bar & Restaurant</option>-->
-          </select>
+          <select name="choix" id="categorie"></select>
         </form>
 
         <hr class="hr" />
@@ -232,5 +147,6 @@
         <button class="buttonModale2">Valider</button>
       </div>
     </aside>
+    <div class="modale-backdrop"></div>
   </body>
 </html>

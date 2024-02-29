@@ -195,6 +195,7 @@ section {
 }
 
 .modale {
+  z-index: 1;
   display: none;
   position: absolute;
   width: 630px;
@@ -282,7 +283,7 @@ section {
 .img-wrapper > .material-symbols-outlined {
   position: absolute;
   top: 4px;
-  right: 12px;
+  right: 8px;
   width: 17px;
   height: 17px;
   font-size: 17px;
@@ -294,6 +295,7 @@ section {
 
 /** css modale2**/
 .modale2 {
+  z-index: 1;
   display: none;
   position: absolute;
   width: 630px;
@@ -343,6 +345,7 @@ section {
 }
 
 .carre-bleu {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -351,6 +354,20 @@ section {
   height: 169px;
   background-color: #e8f1f6;
   border-radius: 3px;
+  overflow: hidden;
+}
+.modale-backdrop {
+  display: none;
+  background-color: black;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+#preview {
+  display: block;
+  position: absolute;
+  height: 193px;
 }
 .carre-bleu > .logo-image {
   font-size: 76px;
