@@ -14,7 +14,6 @@ async function app() {
     figure.appendChild(imageTitle);
     const imageContainer = document.querySelector(".gallery");
     imageContainer.appendChild(figure);
-    console.log(work);
   }
 
   /**
@@ -40,15 +39,6 @@ async function app() {
     return works;
   }
 
-  async function postWorks() {
-    await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Autorization: `Bearer ${token}`,
-      },
-    });
-  }
   /**
    * Permet d'ajouter une Catégorie
    * @param {*} categorie
@@ -75,8 +65,6 @@ async function app() {
         for (let i = 0; i < worksFilter.length; i++) {
           addWork(worksFilter[i]);
         }
-
-        console.log(worksFilter);
       });
   }
 
@@ -238,7 +226,7 @@ async function app() {
       .getElementById("fileInput")
       .addEventListener("change", function (e) {
         const file = e.target.files[0];
-        console.log(file);
+
         if (file.type !== "image/png" && file.type !== "image/jpeg") {
           alert("Please select a PNG or JPEG image.");
           return;
@@ -253,6 +241,29 @@ async function app() {
         reader.readAsDataURL(file);
       });
   }
+
+  async function postWorks() {
+    const formData = new FormData();
+    const title = document.querySelector("#title");
+    const categorieId = document.querySelector("select");
+    const image = document.querySelector("#fileInput");
+    formData.append("title", title.value);
+    formData.append("category", categorieId.value);
+    formData.append("Image", image.files[0].imageUrl);
+
+    await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+  }
+
+  const valider = document.querySelector(".buttonModale2");
+  valider.addEventListener("click", async function () {
+    await postWorks();
+  });
 
   /**
    * Permet de définir le comportement du boutn Login/logout
