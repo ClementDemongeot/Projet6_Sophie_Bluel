@@ -307,7 +307,18 @@ section {
   border-radius: 10px;
   background-color: white;
 }
-
+.message-error {
+  display: none;
+  text-align: center;
+  position: absolute;
+  top: 81%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffcccc;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ff0000;
+}
 .form-Modale2 {
   display: flex;
   flex-direction: column;

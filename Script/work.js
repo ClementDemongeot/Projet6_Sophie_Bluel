@@ -146,6 +146,8 @@ async function app() {
     const modaleBackdrop = document.querySelector(".modale-backdrop");
     const formats = document.querySelector(".formats");
     const imgPreview = document.getElementById("preview");
+    const error = document.querySelector(".message-error");
+    const title = document.querySelector("#title");
 
     linkModifier.addEventListener("click", function () {
       modale.style.display = "block";
@@ -161,20 +163,27 @@ async function app() {
 
     closeModale1.addEventListener("click", function () {
       closeModale();
+      error.style.display = "none";
     });
 
     closeModale2.addEventListener("click", function () {
       closeModale();
+      error.style.display = "none";
+      title.value = "";
     });
 
     arrowBack.addEventListener("click", function () {
       modale.style.display = "block";
       modale2.style.display = "none";
       imgPreview.src = "";
+      error.style.display = "none";
+      title.value = "";
     });
 
     modaleBackdrop.addEventListener("click", function () {
       closeModale();
+      error.style.display = "none";
+      title.value = "";
     });
   }
 
@@ -249,7 +258,7 @@ async function app() {
     const image = document.querySelector("#fileInput");
     formData.append("title", title.value);
     formData.append("category", categorieId.value);
-    formData.append("Image", image.files[0].imageUrl);
+    formData.append("image", image.files[0]);
 
     await fetch("http://localhost:5678/api/works", {
       method: "POST",
@@ -259,11 +268,31 @@ async function app() {
       body: formData,
     });
   }
+  function sendWorks() {
+    const valider = document.querySelector(".buttonModale2");
+    const image = document.querySelector("#fileInput");
+    const title = document.querySelector("#title");
+    const error = document.querySelector(".message-error");
 
-  const valider = document.querySelector(".buttonModale2");
-  valider.addEventListener("click", async function () {
-    await postWorks();
-  });
+    valider.addEventListener("click", async function () {
+      if (title.value === "" || !image.files[0]) {
+        console.log("error");
+        error.style.display = "block";
+        title.addEventListener("click", function () {
+          error.style.display = "none";
+        });
+        image.addEventListener("click", function () {
+          error.style.display = "none";
+        });
+      } else {
+        await postWorks();
+        refresh();
+        closeModale();
+        title.value = "";
+        error.style.display = "none";
+      }
+    });
+  }
 
   /**
    * Permet de définir le comportement du boutn Login/logout
@@ -312,6 +341,7 @@ async function app() {
 
   addWorksToModale(works);
   previewImage();
+  sendWorks();
 }
 
 app();
