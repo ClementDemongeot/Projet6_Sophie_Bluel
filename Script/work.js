@@ -273,11 +273,13 @@ async function app() {
     const image = document.querySelector("#fileInput");
     const title = document.querySelector("#title");
     const error = document.querySelector(".message-error");
+    const validerColor = document.querySelector(".btn-color-change");
 
     valider.addEventListener("click", async function () {
       if (title.value === "" || !image.files[0]) {
         console.log("error");
         error.style.display = "block";
+
         title.addEventListener("click", function () {
           error.style.display = "none";
         });
@@ -291,6 +293,22 @@ async function app() {
         title.value = "";
         error.style.display = "none";
       }
+    });
+
+    /**
+     * Changer la couleur du fond du bouton juste avant de cliquer
+     */
+    validerColor.addEventListener("mouseover", function () {
+      if (title.value !== "" && image.files[0]) {
+        validerColor.style.backgroundColor = "#1D6154";
+      }
+    });
+
+    /**
+     *  Réinitialise la couleur du fond du bouton lorsque la souris quitte le bouton
+     */
+    validerColor.addEventListener("mouseout", function () {
+      validerColor.style.backgroundColor = ""; // Remet la couleur par défaut
     });
   }
 
