@@ -218,7 +218,7 @@ async function app() {
   }
 
   /**
-   * Permet de définir le comportement du boutn select
+   * Permet de définir le comportement du bouton select
    */
   function setSelect() {
     const selectBtn = document.querySelector("select");
@@ -268,6 +268,7 @@ async function app() {
       body: formData,
     });
   }
+
   function sendWorks() {
     const valider = document.querySelector(".buttonModale2");
     const image = document.querySelector("#fileInput");

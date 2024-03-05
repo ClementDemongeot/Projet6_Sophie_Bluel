@@ -292,6 +292,9 @@ section {
   border-radius: 2px;
   cursor: pointer;
 }
+.button-add-modale1:hover {
+  cursor: pointer;
+}
 
 /** css modale2**/
 .modale2 {
