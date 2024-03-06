@@ -320,14 +320,17 @@ async function app() {
     const log = document.querySelector(".log");
     const linkModifier = document.querySelector(".icone_modifier");
     const filtreCategories = document.querySelector(".categories");
+    const bandeNoir = document.querySelector(".bande-noir");
 
     if (token) {
       openModale();
+      bandeNoir.style.display = "block";
       linkModifier.style.display = "flex";
       filtreCategories.style.display = "none";
       log.innerHTML = "logout";
       log.addEventListener("click", function () {
         window.localStorage.removeItem("token");
+        bandeNoir.style.display = "none";
         linkModifier.style.display = "none";
         filtreCategories.style.display = "flex";
         log.innerHTML = "login";
