@@ -260,9 +260,12 @@ async function app() {
       .getElementById("fileInput")
       .addEventListener("change", function (e) {
         const file = e.target.files[0];
-
-        if (file.type !== "image/png" && file.type !== "image/jpeg") {
-          alert("Please select a PNG or JPEG image.");
+        console.log(file.size);
+        if (
+          (file.type !== "image/png" && file.type !== "image/jpeg") ||
+          file.size > 4000000
+        ) {
+          alert("Please select a PNG or JPEG image, 4mo max.");
           return;
         }
         const reader = new FileReader();
