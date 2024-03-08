@@ -57,14 +57,15 @@ async function app() {
         if (categorie.id === 0) {
           worksFilter = works;
         } else {
-          worksFilter = works.filter(function (work) {
-            return work.categoryId === categorie.id;
+          worksFilter = works.filter(function (works) {
+            return works.categoryId === categorie.id;
           });
         }
         document.querySelector(".gallery").replaceChildren();
         for (let i = 0; i < worksFilter.length; i++) {
           addWork(worksFilter[i]);
         }
+        console.log(worksFilter);
       });
   }
 
@@ -74,6 +75,7 @@ async function app() {
   function addCategories(categories) {
     addCategorie({ name: "Tous", id: 0 });
     for (let i = 0; i < categories.length; i++) addCategorie(categories[i]);
+    refresh();
   }
 
   /**
@@ -117,8 +119,12 @@ async function app() {
     const worksContainer = document.querySelector(".gallery");
     worksContainer.replaceChildren();
     addWorks(newWorks);
+    works = newWorks;
   }
 
+  /**
+   * Comportement lors de la fermeture des Modales
+   */
   function closeModale() {
     const modale = document.querySelector(".modale");
     const modale2 = document.querySelector(".modale2");
@@ -134,7 +140,7 @@ async function app() {
   /**
    * Modale
    */
-  async function openModale() {
+  function openModale() {
     const linkModifier = document.querySelector(".icone_modifier");
     const modale = document.querySelector(".modale");
     const modale2 = document.querySelector(".modale2");
@@ -230,7 +236,10 @@ async function app() {
     }
   }
 
-  function previewImage() {
+  /**
+   * Comportement lorsque se charge l'image sur la modale 2
+   */
+  function loadImage() {
     document
       .getElementById("fileInput")
       .addEventListener("change", function (e) {
@@ -251,6 +260,9 @@ async function app() {
       });
   }
 
+  /**
+   * Ajout d'un projet (work) à la base de donnée
+   */
   async function postWorks() {
     const formData = new FormData();
     const title = document.querySelector("#title");
@@ -269,6 +281,9 @@ async function app() {
     });
   }
 
+  /**
+   * Comportement du bouton Valider sur la modale 2
+   */
   function sendWorks() {
     const valider = document.querySelector(".buttonModale2");
     const image = document.querySelector("#fileInput");
@@ -334,6 +349,7 @@ async function app() {
         linkModifier.style.display = "none";
         filtreCategories.style.display = "flex";
         log.innerHTML = "login";
+        refresh();
         log.addEventListener("click", function () {
           document.location.href = "login.html";
         });
@@ -352,17 +368,16 @@ async function app() {
   setLogInOut(token);
 
   // Récupère les Works depuis l'API et les affiche
-  const works = await getWorks();
+  let works = await getWorks();
   addWorks(works);
 
   // Récupère les Catégories depuis l'API et les affiche
   const categories = await getCategories();
+
   addCategories(categories);
-
   setSelect();
-
   addWorksToModale(works);
-  previewImage();
+  loadImage();
   sendWorks();
 }
 
