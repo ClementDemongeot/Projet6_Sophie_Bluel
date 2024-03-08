@@ -585,7 +585,7 @@ li:hover {
   min-width: 100px;
 }
 .btn-categorie:hover,
-.btn-categorie.active {
+.btn-selected {
   background-color: #1d6154;
   color: rgba(255, 254, 248, 1);
 }

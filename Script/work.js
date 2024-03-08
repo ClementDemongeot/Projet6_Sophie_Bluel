@@ -49,24 +49,36 @@ async function app() {
     categorieElement.classList.add("btn-categorie", `btn-${categorie.id}`);
     categorieElement.innerText = categorie.name;
     divContainer.appendChild(categorieElement);
+    const categorieButtonSelected = document.querySelector(
+      `.btn-${categorie.id}`
+    );
+    if (categorie.id === selectedCategorie) {
+      document
+        .querySelector(`.btn-${selectedCategorie}`)
+        .classList.add("btn-selected");
+    }
+    categorieButtonSelected.addEventListener("click", function () {
+      // on recupère le bouton slectionné précedemment et on lui la classe ("btn-selected")
+      document
+        .querySelector(`.btn-${selectedCategorie}`)
+        .classList.remove("btn-selected");
+      // on rajoute la classe ("btn-selected") au nouveau bouton selectionné
+      categorieButtonSelected.classList.add("btn-selected");
+      selectedCategorie = categorie.id;
 
-    document
-      .querySelector(`.btn-${categorie.id}`)
-      .addEventListener("click", function () {
-        let worksFilter;
-        if (categorie.id === 0) {
-          worksFilter = works;
-        } else {
-          worksFilter = works.filter(function (works) {
-            return works.categoryId === categorie.id;
-          });
-        }
-        document.querySelector(".gallery").replaceChildren();
-        for (let i = 0; i < worksFilter.length; i++) {
-          addWork(worksFilter[i]);
-        }
-        console.log(worksFilter);
-      });
+      let worksFilter;
+      if (categorie.id === 0) {
+        worksFilter = works;
+      } else {
+        worksFilter = works.filter(function (works) {
+          return works.categoryId === categorie.id;
+        });
+      }
+      document.querySelector(".gallery").replaceChildren();
+      for (let i = 0; i < worksFilter.length; i++) {
+        addWork(worksFilter[i]);
+      }
+    });
   }
 
   /**
@@ -373,7 +385,7 @@ async function app() {
 
   // Récupère les Catégories depuis l'API et les affiche
   const categories = await getCategories();
-
+  let selectedCategorie = 0;
   addCategories(categories);
   setSelect();
   addWorksToModale(works);
