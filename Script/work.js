@@ -166,6 +166,7 @@ async function app() {
     const imgPreview = document.getElementById("preview");
     const error = document.querySelector(".message-error");
     const title = document.querySelector("#title");
+    const image = document.querySelector("#fileInput");
 
     linkModifier.addEventListener("click", function () {
       modale.style.display = "block";
@@ -188,6 +189,7 @@ async function app() {
       closeModale();
       error.style.display = "none";
       title.value = "";
+      image.value = "";
     });
 
     arrowBack.addEventListener("click", function () {
@@ -196,12 +198,14 @@ async function app() {
       imgPreview.src = "";
       error.style.display = "none";
       title.value = "";
+      image.value = "";
     });
 
     modaleBackdrop.addEventListener("click", function () {
       closeModale();
       error.style.display = "none";
       title.value = "";
+      image.value = "";
     });
   }
 
@@ -301,7 +305,16 @@ async function app() {
     const image = document.querySelector("#fileInput");
     const title = document.querySelector("#title");
     const error = document.querySelector(".message-error");
-    const validerColor = document.querySelector(".btn-color-change");
+
+    const form = document.querySelector(".form");
+
+    form.addEventListener("input", function () {
+      if (image.files[0] && title.value !== "") {
+        valider.disabled = false;
+      } else {
+        valider.disabled = true;
+      }
+    });
 
     valider.addEventListener("click", async function () {
       if (title.value === "" || !image.files[0]) {
@@ -321,22 +334,6 @@ async function app() {
         title.value = "";
         error.style.display = "none";
       }
-    });
-
-    /**
-     * Changer la couleur du fond du bouton juste avant de cliquer
-     */
-    validerColor.addEventListener("mouseover", function () {
-      if (title.value !== "" && image.files[0]) {
-        validerColor.style.backgroundColor = "#1D6154";
-      }
-    });
-
-    /**
-     *  Réinitialise la couleur du fond du bouton lorsque la souris quitte le bouton
-     */
-    validerColor.addEventListener("mouseout", function () {
-      validerColor.style.backgroundColor = ""; // Remet la couleur par défaut
     });
   }
 

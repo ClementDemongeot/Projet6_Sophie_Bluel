@@ -124,34 +124,29 @@
         <span class="material-symbols-outlined close-modale-2"> close </span>
         <span class="material-symbols-outlined arrow-back"> arrow_back </span>
         <p class="titleModale">Ajout photo</p>
-        <div class="img-position">
-          <div class="modale-img">
-            <div class="carre-bleu">
-              <span class="material-symbols-outlined logo-image"> image </span>
-              <label for="fileInput" class="button-add-photo">
-                + Ajout photo
-              </label>
-              <input
-                type="file"
-                id="fileInput"
-                accept="image/png, image/jpeg"
-              />
-              <img id="preview" />
-              <p class="formats">jpg,png : 4mo</p>
-            </div>
+        <form class="form" action="#" method="post">
+          <div class="carre-bleu">
+            <span class="material-symbols-outlined logo-image"> image </span>
+            <label for="fileInput" class="button-add-photo">
+              + Ajout photo
+            </label>
+            <input type="file" id="fileInput" accept="image/png, image/jpeg" />
+            <img id="preview" />
+            <p class="formats">jpg,png : 4mo</p>
           </div>
-        </div>
-        <form class="form-Modale2" action="#" method="post">
-          <label for="title">Titre</label>
-          <input type="text" name="title" id="title" />
-          <label for="categorie">Catégorie</label>
-          <select name="choix" id="categorie"></select>
+
+          <div class="form-Modale2">
+            <label class="form-label" for="title">Titre</label>
+            <input type="text" name="title" id="title" />
+            <label class="form-label" for="categorie">Catégorie</label>
+            <select name="choix" id="categorie"></select>
+          </div>
         </form>
 
         <p class="message-error">Veuillez remplir tous les champs</p>
 
         <hr class="hr" />
-        <button class="buttonModale2 btn-color-change">Valider</button>
+        <button class="buttonModale2" disabled>Valider</button>
       </div>
     </aside>
     <div class="modale-backdrop"></div>
